@@ -4,7 +4,7 @@ import { Usage, UsageDocument } from 'src/schema/usage.schema';
 import { UsageDto } from './usage.dto';
 import { ServiceService } from '../service/service.service';
 import { InjectModel } from '@nestjs/mongoose';
-import { DRIVE, GEARBOX, serviceValues } from 'src/base/constants';
+import { ADMIN, DRIVE, GEARBOX, serviceValues } from 'src/base/constants';
 import axios from 'axios';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class UsageService {
     private readonly service: ServiceService,
   ) {}
 
-  public async create(dto: UsageDto, user: string) {
+  public async create(dto: UsageDto, user: string, role: number) {
     try {
       const type = serviceValues[dto.service];
       const value = dto.value;
@@ -41,22 +41,24 @@ export class UsageService {
       );
       if (!res.data || !res.data.prediction || res.data.prediction == 0)
         throw new HttpException('Алдаа гарлаа', HttpStatus.BAD_REQUEST);
-      let service = await this.service.getType(+type, user);
       const estimatedPrice =
         Math.round(+res.data.prediction.predicted_price / 100000) * 100000;
-      await this.model.create({
-        ...dto,
-        user,
-        service: service._id,
-        amount: service.price * (dto.quantity ?? 1),
-        estimatedPrice: estimatedPrice,
-        value: {
-          plateNumber,
-          gearbox,
-          drive,
-          milleage: value.milleage,
-        },
-      });
+      if (role != ADMIN) {
+        let service = await this.service.getType(+type, user);
+        await this.model.create({
+          ...dto,
+          user,
+          service: service._id,
+          amount: service.price * (dto.quantity ?? 1),
+          estimatedPrice: estimatedPrice,
+          value: {
+            plateNumber,
+            gearbox,
+            drive,
+            milleage: value.milleage,
+          },
+        });
+      }
       return estimatedPrice;
     } catch (error) {
       console.log(error);

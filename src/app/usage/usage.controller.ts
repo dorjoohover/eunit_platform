@@ -23,6 +23,6 @@ export class UsageController {
   })
   @Post()
   async create(@Body() dto: UsageDto, @Req() { user }) {
-    return await this.service.create(dto, user['userId']);
+    return await this.service.create(dto, user['userId'], user.role);
   }
 }
