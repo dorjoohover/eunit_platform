@@ -59,7 +59,9 @@ export class UsageService {
           },
         });
       }
-      return estimatedPrice;
+      return role == ADMIN
+        ? { vehicle: res.data.vehicle, price: estimatedPrice }
+        : estimatedPrice;
     } catch (error) {
       console.log(error);
     }
