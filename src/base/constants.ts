@@ -24,6 +24,17 @@ export const serviceValues = {
   REALSTATE: SERVICE.REALSTATE,
 };
 
+export const VehicleCondition = {
+  [10]: 'Маш сайн',
+  [20]: 'Сайн',
+  [30]: 'Дунд зэрэг',
+  [40]: 'Муу',
+  'Маш сайн': 10,
+  Сайн: 20,
+  'Дунд зэрэг': 30,
+  Муу: 40,
+};
+
 export const DRIVE = {
   урдаа: 'Урдаа FWD',
   бүх: 'Бүх дугуй 4WD',

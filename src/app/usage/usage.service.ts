@@ -60,7 +60,11 @@ export class UsageService {
         });
       }
       return role == ADMIN
-        ? { vehicle: res.data.vehicle, price: estimatedPrice }
+        ? {
+            price: estimatedPrice,
+            features: res.data.features,
+            vehicle: res.data.vehicle,
+          }
         : estimatedPrice;
     } catch (error) {
       console.log(error);
