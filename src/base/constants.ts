@@ -24,30 +24,6 @@ export const serviceValues = {
   REALSTATE: SERVICE.REALSTATE,
 };
 
-export const VehicleCondition = {
-  [10]: 'Маш сайн',
-  [20]: 'Сайн',
-  [30]: 'Дунд зэрэг',
-  [40]: 'Муу',
-  'Маш сайн': 10,
-  Сайн: 20,
-  'Дунд зэрэг': 30,
-  Муу: 40,
-};
-
-export const DRIVE = {
-  урдаа: 'Урдаа FWD',
-  бүх: 'Бүх дугуй 4WD',
-  хойноо: 'Хойноо RWD',
-};
-
-export const GEARBOX = {
-  механик: 'Механик',
-  mechanic: 'Механик',
-  автомат: 'Автомат',
-  automanic: 'Автомат',
-};
-
 export const Status = {
   ACTIVE: 10,
   BANNED: 20,
@@ -140,3 +116,11 @@ export const NutagDevsgerBuschlel = {
   Говьсүмбэр: 0.67,
   'Өмнөговь аймгийн Цогтцэций, Ханбогд сум, Дорноговь аймгийн Замын-үүд сум': 0.69,
 };
+
+export function isValidCarNumber(input: string): boolean {
+  // Монгол үсэг: А-Я, Ц-Ө гэх мэт (тэмдэгт хувилбар хамаарна)
+  const regex = /^[0-9]{4}[А-Я]{3}$/;
+  return regex.test(input.toUpperCase());
+}
+
+export const DRIVE = ['Бүх дугуй 4WD', 'Хойноо RWD', 'Урдаа FWD'];

@@ -10,9 +10,14 @@ import {
 } from 'src/common/const/schema.const';
 import { ServiceModule } from '../service/service.module';
 import { UsersModule } from '../users/users.module';
+import { InfoModule } from '../info/info.module';
 
 @Module({
-  imports: [MongooseModule.forFeature([UsageConst, LogConst]), ServiceModule],
+  imports: [
+    MongooseModule.forFeature([UsageConst, LogConst]),
+    ServiceModule,
+    InfoModule,
+  ],
   controllers: [UsageController],
   providers: [UsageService],
   exports: [UsageService],

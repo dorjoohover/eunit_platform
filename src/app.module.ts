@@ -14,6 +14,7 @@ import { LogModule } from './base/log/log.module';
 import { BaseModule } from './base/base.module';
 import { JwtAuthGuard } from './auth/guards/jwt.guard';
 import { ServiceModule } from './app/service/service.module';
+import { InfoModule } from './app/info/info.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -33,6 +34,7 @@ import { ServiceModule } from './app/service/service.module';
     ServiceModule,
     LogModule,
     BaseModule,
+    InfoModule,
   ],
   controllers: [],
   providers: [

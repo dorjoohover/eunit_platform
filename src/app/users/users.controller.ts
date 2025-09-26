@@ -36,7 +36,6 @@ export class UsersController extends BaseController {
   }
   @Post()
   create(@Body() dto: UsersDto, @Request() { user }) {
-    console.log(user);
     return this.service.create(dto, user);
   }
 
